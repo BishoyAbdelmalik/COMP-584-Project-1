@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Introducing the New MalDuino</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+      /* CLIENT-SPECIFIC STYLES */
+      body,
+      table,
+      td,
+      a {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+      }
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+      /* RESET STYLES */
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+      }
+      table {
+        border-collapse: collapse !important;
+      }
+      body {
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      /* iOS BLUE LINKS */
+      a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+      /* GMAIL BLUE LINKS */
+      u + #body a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+      /* SAMSUNG MAIL BLUE LINKS */
+      #MessageViewBody a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+      /* Universal styles for links and stuff */
+      * {
+        font-family: Arial !important;
+      }
+      ul {
+        display: block !important;
+        list-style-type: disc !important;
+        margin-block-start: 1em !important;
+        margin-block-end: 1em !important;
+        margin-inline-start: 0px !important;
+        margin-inline-end: 0px !important;
+        padding-inline-start: 40px !important;
+      }
+
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .fade1 {
+        animation: 1s 1 fade-in;
+        transform-origin: center bottom;
+      }
+      .fade2 {
+        transform-origin: center top;
+
+        animation: 2s 1 fade-in;
+      }
+      /* Responsive styles */
+      @media screen and (max-width: 600px) {
+        .mobile {
+          width: 100% !important;
+        }
+
+        .block,
+        .block tbody,
+        .block tr,
+        .block td {
+          display: block !important;
+          width: 100% !important;
+        }
+        .coupon img {
+          width: 50% !important;
+        }
+        td.coupon {
+          padding: 20px 0 !important;
+        }
+        .coupon a {
+          width: 80% !important;
+          margin: auto !important;
+        }
+      }
+      .buy,
+      #buyMalDuino,
+      .coupon a {
+        transition: all 300ms;
+      }
+      .buy:hover,
+      #buyMalDuino:hover {
+        background-color: #506593 !important;
+        box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+          6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+          12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+          22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+          41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+          100px 100px 80px rgba(0, 0, 0, 0.07);
+      }
+
+      .coupon a:hover {
+        background-color: #506593 !important;
+        color: white !important;
+        border-color: white !important;
+        box-shadow: 1.9px 1.9px 3.6px rgba(0, 0, 0, 0.052),
+          5.3px 5.3px 10px rgba(0, 0, 0, 0.075),
+          12.7px 12.7px 24.1px rgba(0, 0, 0, 0.098),
+          42px 42px 80px rgba(0, 0, 0, 0.15);
+      }
+
+      input {
+        display: none;
+      }
+      label {
+        display: none;
+      }
+      input:checked ~ label {
+        cursor: pointer;
+        display: inline-block !important;
+        background-color: #1b2334;
+        border-radius: 10px;
+        color: #ffffff;
+        font-weight: bold;
+        line-height: 40px;
+        text-align: center;
+        padding: 0 15px;
+        margin: 10px;
+        min-width: 100px;
+      }
+      #slide1-content,
+      #slide2-content,
+      #slide3-content,
+      .slide {
+        display: block;
+      }
+    </style>
+    <!--[if mso]>
+      <style>
+       
+        input:checked ~ label {
+          display: none !important;
+        }
+      </style>
+    <![endif]-->
+    <style>
+      #slide1:checked ~ .slide1-label,
+      #slide2:checked ~ .slide2-label,
+      #slide3:checked ~ .slide3-label {
+        background-color: #506593;
+        box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+          6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+          12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+          22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+          41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+          100px 100px 80px rgba(0, 0, 0, 0.07);
+      }
+
+      #slide1:checked ~ #slide2-content,
+      #slide1:checked ~ #slide3-content {
+        display: none !important;
+      }
+      #slide2:checked ~ #slide1-content,
+      #slide2:checked ~ #slide3-content {
+        display: none !important;
+      }
+      #slide3:checked ~ #slide1-content,
+      #slide3:checked ~ #slide2-content {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body
+    id="body"
+    style="margin: 0 !important; padding: 0 !important; background: #dcdcdc"
+  >
+    <table
+      width="100%"
+      border="0"
+      cellspacing="0"
+      role="presentation"
+      cellpadding="0"
+    >
+      <tr>
+        <td
+          align="center"
+          background="https://cdn.glitch.global/2ab481dc-d7c1-44ee-ad25-24298722022c/download.jpg"
+          bgcolor="#DCDCDC"
+          style="
+            background: #dcdcdc
+              url('https://cdn.glitch.global/2ab481dc-d7c1-44ee-ad25-24298722022c/download.jpg');
+          "
+        >
+          <table
+            border="0"
+            cellspacing="0"
+            cellpadding="0"
+            role="presentation"
+            width="600"
+            class="mobile"
+            style="
+              width: 100%;
+              min-width: 300px;
+              max-width: 600px;
+              margin: auto;
+              background: white;
+              font-family: Arial;
+            "
+          >
+            <!-- Logo image -->
+            <tr>
+              <td
+                align="center"
+                class="fade1"
+                style="background: #1c2335; margin: auto; padding-top: 10px"
+              >
+                <a href="https://maltronics.com/">
+                  <img
+                    src="https://cdn.glitch.global/f4e854a8-290e-420d-9661-9fd2ff3f5569/maltronic.png?v=1644804936731"
+                    width="300"
+                    height="auto"
+                    alt="Maltronics"
+                    style="
+                      min-width: 100px;
+                      width: 100%;
+                      max-width: 300px;
+                      display: block;
+                      margin: auto;
+                    "
+                  />
+                </a>
+                <p style="text-align: center; color: white; padding-top: 0px">
+                  The finest selection of pentesting products
+                </p>
+              </td>
+            </tr>
+            <tr class="fade2">
+              <td align="center">
+                <!-- Headline -->
+                <h1 style="text-align: center">Introducing the New MalDuino</h1>
+                <!-- Hero Image -->
+                <img
+                  src="https://cdn.glitch.global/f4e854a8-290e-420d-9661-9fd2ff3f5569/frontback1-800_480x480.gif?v=1644804893575"
+                  alt="MalDuino shown in different format with and without its cover and plugged into computer"
+                  width="400"
+                  style="
+                    margin: auto;
+                    min-width: 100px;
+                    width: 100%;
+                    max-width: 400px;
+                    display: block;
+                  "
+                />
+              </td>
+            </tr>
+
+            <!-- Body copy -->
+            <tr class="fade2">
+              <td style="padding: 0 20px">
+                <p>
+                  MalDuino is the Arduino based BadUSB. Simply load your
+                  plaintext BadUSB scripts onto a Micro SD card, pop it in your
+                  MalDuino, and you're good to go!
+                </p>
+                <p>
+                  Select between 3 stored scripts on the fly using the onboard 3
+                  position switch.
+                </p>
+                <p>
+                  We put MalDuino in the most basic USB enclosure we could find,
+                  the unbranded case is perfect for pentests; it doesn't draw
+                  attention, whilst being functional and encompassing dual USB A
+                  and C.
+                </p>
+              </td>
+            </tr>
+            <tr class="fade2">
+              <td>
+                <!-- Button -->
+                <div style="margin: 30px; text-align: center">
+                  <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://maltronics.com/products/malduino" style="height:50px;v-text-anchor:middle;width:300px;" arcsize="25%" stroke="f" fillcolor="#1b2334">
+                      <w:anchorlock/>
+                      <center>
+                    <![endif]-->
+                  <a
+                    href="https://maltronics.com/products/malduino"
+                    id="buyMalDuino"
+                    style="
+                      background-color: #1b2334;
+                      border-radius: 10px;
+                      color: #ffffff;
+                      display: inline-block;
+                      font-weight: bold;
+                      line-height: 50px;
+                      text-align: center;
+                      text-decoration: none;
+                      width: 300px;
+                      -webkit-text-size-adjust: none;
+                    "
+                    >Buy MalDuino!</a
+                  >
+                  <!--[if mso]>
+                      </center>
+                    </v:roundrect>
+                  <![endif]-->
+                </div>
+              </td>
+            </tr>
+            <!-- Three column section -->
+            <tr>
+              <td style="text-align: center">
+                <table
+                  border="0"
+                  cellspacing="0"
+                  cellpadding="0"
+                  width="100%"
+                  role="presentation"
+                >
+                  <tr>
+                    <td>
+                      <!-- left section -->
+                      <table
+                        align="left"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        width="33%"
+                        role="presentation"
+                        class="block"
+                      >
+                        <tr>
+                          <td style="padding: 10px; line-height: 24px">
+                            <img
+                              src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/bitcoin.png?v=1645503078005"
+                              height="46px"
+                              style="height: 46px"
+                              alt="Payment Options Section"
+                            />
+                            <h3 style="margin: 5px 0">Payment Options</h3>
+                            <p style="margin: 5px 0">
+                              We accept crypto as well as the standard stuff!
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                      <!-- right section -->
+                      <table
+                        align="right"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        width="33%"
+                        role="presentation"
+                        class="block"
+                      >
+                        <tr>
+                          <td style="padding: 10px; line-height: 24px">
+                            <img
+                              src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/location.png?v=1645503075351"
+                              height="46px"
+                              style="height: 46px"
+                              alt="We Ship Worldwide Section"
+                            />
+                            <h3 style="margin: 5px 0">We Ship Worldwide</h3>
+                            <p style="margin: 5px 0">
+                              We've shipped to 103 countries
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                      <!-- middle section -->
+                      <table
+                        align="right"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        width="33%"
+                        role="presentation"
+                        class="block"
+                      >
+                        <tr>
+                          <td style="padding: 10px; line-height: 24px">
+                            <img
+                              src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/ship.png?v=1645503073145"
+                              height="46px"
+                              style="height: 46px"
+                              alt="Fast Turnaround Section"
+                            />
+                            <h3 style="margin: 5px 0">Fast Turnaround</h3>
+                            <p style="margin: 5px 0">
+                              Orders ship within 24 hours of being placed
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- sale section -->
+            <tr>
+              <td>
+                <table
+                  border="0"
+                  cellspacing="0"
+                  cellpadding="0"
+                  width="100%"
+                  role="presentation"
+                >
+                  <tr>
+                    <td>
+                      <table
+                        align="left"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        role="presentation"
+                        class="block"
+                        width="48%"
+                      >
+                        <tr>
+                          <td
+                            class="coupon"
+                            style="padding: 10px; line-height: 24px"
+                          >
+                            <img
+                              src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/10%25%20off%20(1).jpg?v=1645508039224"
+                              alt="Maltronic Sale"
+                              width="268"
+                              style="display: block; margin: 0 auto"
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                      <table
+                        align="right"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        role="presentation"
+                        class="block"
+                        width="48%"
+                      >
+                        <tr>
+                          <td
+                            class="coupon"
+                            style="
+                              line-height: 24px;
+                              text-align: center;
+                              padding: 20px 15px;
+                            "
+                          >
+                            <h2>10% OFF Your First Purchase!</h2>
+                            <p style="font-size: 20px">
+                              Place your order today using coupon code:
+                            </p>
+                            <a
+                              style="
+                                font-size: 20px;
+                                font-weight: bold;
+                                border-radius: 10px;
+                                border: 2px dashed #1c2235;
+                                color: #1c2235;
+                                padding: 15px;
+                                display: block;
+                                text-decoration: none;
+                              "
+                              href="https://maltronics.com/shop"
+                            >
+                              10%OFF
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 20px">
+                <h2>Checkout other products</h2>
+                <br />
+
+                <input
+                  type="radio"
+                  name="slides"
+                  id="slide1"
+                  style="display: none"
+                  checked
+                />
+                <input
+                  type="radio"
+                  name="slides"
+                  id="slide2"
+                  style="display: none"
+                />
+                <input
+                  type="radio"
+                  name="slides"
+                  id="slide3"
+                  style="display: none"
+                />
+
+                <label
+                  for="slide1"
+                  class="slide-label slide1-label"
+                  style="display: none"
+                  >WiFi Deauther</label
+                >
+                <label
+                  for="slide2"
+                  class="slide-label slide2-label"
+                  style="display: none"
+                  >Deauth Detector</label
+                >
+                <label
+                  for="slide3"
+                  class="slide-label slide3-label"
+                  style="display: none"
+                  >Webcam Protector</label
+                >
+
+                <div
+                  id="slide1-content"
+                  class="slide slide1"
+                  style="
+                    padding: 10px;
+                    background-color: #dedef2;
+                    border-radius: 10px;
+                    margin: 20px 0;
+                    text-align: left;
+                  "
+                >
+                  <h3 style="text-align: center">WiFi Deauther</h3>
+                  <div style="text-align: center">
+                    <img
+                      style="
+                        margin: auto;
+                        min-width: 100px;
+                        width: 100%;
+                        max-width: 300px;
+                        display: inline;
+                      "
+                      src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/square-d_502x502.jpg?v=1645642849216"
+                      alt="Wifi deauther picture"
+                      width="300"
+                    />
+                  </div>
+
+                  <ul>
+                    <li>The WiFi Deauther</li>
+                    <li>Kicks devices off a WiFi network</li>
+                    <li>Spam beacon frames</li>
+                    <li>Spam probe requests</li>
+                    <li>Sleek metallic silver case</li>
+                    <li>USB A + C</li>
+                    <li>Controlled via intuitive web interface</li>
+                    <li>Full documentation</li>
+                    <li>RGB!</li>
+                  </ul>
+                  <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://maltronics.com/products/wifi-deauther" style="height:30px;v-text-anchor:middle;width:100%;" arcsize="25%" stroke="f" fillcolor="#1b2334">
+                      <w:anchorlock/>
+                      <center>
+                    <![endif]-->
+                  <a
+                    href="https://maltronics.com/products/wifi-deauther"
+                    class="buy"
+                    style="
+                      background-color: #1b2334;
+                      border-radius: 10px;
+                      color: #ffffff;
+                      font-weight: bold;
+                      line-height: 30px;
+                      text-align: center;
+                      text-decoration: none;
+                      padding: 10px;
+                      margin: auto;
+                      display: block;
+                      -webkit-text-size-adjust: none;
+                    "
+                    >Learn More</a
+                  >
+                  <!--[if mso]>
+                      </center>
+                    </v:roundrect>
+                  <![endif]-->
+                </div>
+
+                <div
+                  id="slide2-content"
+                  class="slide slide2"
+                  style="
+                    padding: 10px;
+                    background-color: #dedef2;
+                    border-radius: 10px;
+                    margin: 20px 0;
+                    text-align: left;
+                  "
+                >
+                  <h3 style="text-align: center">Deauth Detector</h3>
+                  <div style="text-align: center">
+                    <img
+                      style="
+                        margin: auto;
+                        min-width: 100px;
+                        width: 100%;
+                        max-width: 300px;
+                        display: inline;
+                      "
+                      src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/both_4ac6a4c1-e6b6-4942-9041-d1a898eb95fa_499x499.jpg"
+                      alt="Deauth Detector picture"
+                      width="300"
+                    />
+                  </div>
+                  <ul>
+                    <li>Detects WiFi Denial Of Service Attacks</li>
+                    <li>Power With Any USB Power Source</li>
+                    <li>Case illuminates to indicate attack is ongoing</li>
+                    <li>Works on 2.4GHz</li>
+                  </ul>
+                  <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://maltronics.com/products/deauth-detector" style="height:30px;v-text-anchor:middle;width:100%;" arcsize="25%" stroke="f" fillcolor="#1b2334">
+                      <w:anchorlock/>
+                      <center>
+                    <![endif]-->
+                  <a
+                    href="https://maltronics.com/products/deauth-detector"
+                    class="buy"
+                    style="
+                      background-color: #1b2334;
+                      border-radius: 10px;
+                      color: #ffffff;
+                      font-weight: bold;
+                      line-height: 30px;
+                      text-align: center;
+                      text-decoration: none;
+                      padding: 10px;
+                      margin: auto;
+                      display: block;
+                      -webkit-text-size-adjust: none;
+                    "
+                    >Learn More</a
+                  >
+                  <!--[if mso]>
+                      </center>
+                    </v:roundrect>
+                  <![endif]-->
+                </div>
+                <div
+                  id="slide3-content"
+                  class="slide slide3"
+                  style="
+                    padding: 10px;
+                    background-color: #dedef2;
+                    border-radius: 10px;
+                    margin: 20px 0;
+                    text-align: left;
+                  "
+                >
+                  <h3 style="text-align: center">Webcam Protector (3 pack)</h3>
+                  <div style="text-align: center">
+                    <img
+                      style="
+                        margin: auto;
+                        min-width: 100px;
+                        width: 100%;
+                        max-width: 300px;
+                        display: inline;
+                      "
+                      src="https://cdn.glitch.global/d66a58fe-e715-4df3-a55d-9acaba67cdc8/P1044122_1202x657.jpg?v=1645643152569"
+                      alt="Webcam Protector picture"
+                      width="300"
+                    />
+                  </div>
+                  <ul>
+                    <li>
+                      Simply peel back the blue tape on the back and stick over
+                      your webcam, make sure to position the hole where your
+                      webcam is.
+                    </li>
+                    <li>
+                      When you need to use your webcam simply slide to the
+                      right, when you're done just slide it back.
+                    </li>
+                    <li>Comes as a pack of 3 protectors</li>
+                  </ul>
+                  <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://maltronics.com/collections/misc/products/webcam-protector" style="height:30px;v-text-anchor:middle;width:100%;" arcsize="25%" stroke="f" fillcolor="#1b2334">
+                      <w:anchorlock/>
+                      <center>
+                    <![endif]-->
+                  <a
+                    href="https://maltronics.com/collections/misc/products/webcam-protector"
+                    class="buy"
+                    style="
+                      background-color: #1b2334;
+                      border-radius: 10px;
+                      color: #ffffff;
+                      font-weight: bold;
+                      line-height: 30px;
+                      text-align: center;
+                      text-decoration: none;
+                      padding: 10px;
+                      margin: auto;
+                      display: block;
+                      -webkit-text-size-adjust: none;
+                    "
+                    >Learn More</a
+                  >
+                  <!--[if mso]>
+                      </center>
+                    </v:roundrect>
+                  <![endif]-->
+                </div>
+              </td>
+            </tr>
+            <!-- Footer information: Always include an unsubscribe link! -->
+            <tr>
+              <td align="left">
+                <p style="padding: 0 20px 0 20px">
+                  <a href="#">Unsubscribe</a> from the newsletter email list
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
