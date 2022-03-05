@@ -1,0 +1,14 @@
+Through testing I found out that each email client is dealing with the CSS in different ways: 
+I test Outlook on windows, yahoo mail web, outlook web client, gmail, aol web client, Mozilla Thunderbird on windows and ionos web mail client. 
+
+First thing I noticed was that the animations doesn't work in almost all the clients that I was able to test as they only worked on Thunderbird and ionos web mail. 
+Additionally The box shadow property doesn't work on most clients either and only worked on Thunderbird and ionos web mail.
+Surprisngly however the hover CSS selector worked on almost all email clients except outlook on windows.
+Some of the things that I noticed is with outlook the align property on the td element becomes important because it seems to ignore text-align on some elements so it has to be moved using the align property on the td element
+
+The part that I had alot of trouble with was the slides using checkboxes as it seems every client is treating them differently.
+The only client that has them working correctly is thuderbird.
+while most other clients either don't support the :checked selector such as chrome or outlook or they change the id for the checkboxes but doesnt update the for attribute in the label to match the new id such yahoo mail or aol
+and some email clients like ionos mail remove the input element all together. 
+The solution I was able to come up with was to show all the slides if its not supported and I achieved that through a combination between adding html if statments checking if its outlook and adding css rules that will activate the slides system only when it is able to get access to the checked property.
+The only problem that I couldnt find a solution for are email clients that has support to the :checked selector and also changed the id of the input fields but didnt update the for value on the label which results in only showing the first slide and the only way to change the slide is to press shpw the input element and change it directly.
